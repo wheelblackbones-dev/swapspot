@@ -26,7 +26,7 @@ The project files show what the visitor can do, but do not provide evidence abou
 
 ## 1.1 The Problem and First Market
 
-The project presents a service for finding parking places. It lets a visitor search by area, price, distance, and features such as covered parking, EV charging, or accessible spaces. Its sample parking places are located around central Bangkok.
+The project presents a service for finding parking places. It lets a visitor search by area, price, distance, and features such as covered parking, electric-car charging, or accessible spaces. Its sample parking places are located around central Bangkok.
 
 The project files do not include interviews, surveys, market research, or test results proving that this is a problem people will pay to solve. The exact first customer group and the size of the market are therefore:
 
@@ -173,7 +173,7 @@ The project contains no screen for an operator to join, add a parking place, cha
 
 ## 3.5 Build Tools in Plain Language
 
-The project is a website made with Next.js, React, and TypeScript. It uses Leaflet to show the map, OpenStreetMap for map images, and the browser's built-in speech features when available. The project files include software checks for search, settings, parking calculations, session timing, and voice-command rules.
+The project is a website. It uses a map service and the speech features available in some web browsers. The project also includes automatic checks of the search, settings, parking calculations, timers, and spoken requests.
 
 | Project access item | Link |
 |---|---|
@@ -333,18 +333,9 @@ Example from the app:
 |---|---:|---:|---:|---|
 | Siam Paragon Garage | ฿60 per hour | 2,600 | 520 | Sample EV and accessible spaces; covered |
 
-## Appendix B: Evidence Sources in the Project
+## Appendix B: Project Evidence Reviewed
 
-- `README.md` — describes the demo, its limits, and how it can be run.
-- `lib/demo-lots.ts` — lists sample parking places and their information.
-- `components/drive-view.tsx` — main visitor screen and typed request entry.
-- `components/map-view.tsx` and `components/parking-map.tsx` — map, search, filters, and lot selection.
-- `components/detail-view.tsx` — parking place details.
-- `components/spots-view.tsx` — sample spaces and demo timer.
-- `components/navigation-view.tsx` — simulated route view.
-- `components/camera-view.tsx` — static image and simulated camera labels.
-- `components/use-speech.ts` — browser speech input and spoken replies.
-- `tests/` — software checks; these are not user interviews or customer tests.
+This draft is based on the project overview, the sample parking-place list, and the pages for search, map, parking-place details, sample space selection, route preview, camera view, and voice input. The project also includes automatic software checks. These checks do not replace interviews or tests with drivers and parking operators.
 
 ## Appendix C: Research Materials and Links
 
