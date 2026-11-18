@@ -14,12 +14,15 @@ type Props = {
   transcript: string;
   listening: boolean;
   speaking: boolean;
+  /** The driver's booking in progress (a spot on hold or a paid session), shown under the nearest lot. */
+  banner: { time: string; title: string; note: string; action: string } | null;
   onNearest: (id: string) => void;
   onMicrophone: () => void;
-  onCommand: (command: string) => void;
+  onCommand: (command: string, source: "chip" | "text") => void;
+  onBanner: () => void;
 };
 
-export function DriveView({ nearest, location, answer, transcript, listening, speaking, onNearest, onMicrophone, onCommand }: Props) {
+export function DriveView({ nearest, location, answer, transcript, listening, speaking, banner, onNearest, onMicrophone, onCommand, onBanner }: Props) {
   const [typedCommand, setTypedCommand] = useState("");
   return (
     <section className="view active" id="view-drive">
@@ -30,6 +33,13 @@ export function DriveView({ nearest, location, answer, transcript, listening, sp
             <div className="meta"><div className="name">{nearest?.name ?? "No parking in range"}</div><div className="sub">{nearest ? `${lotDistance(nearest, location)} · ${formatPrice(nearest)} · ${statusLabel(nearest)}` : "Widen search radius in settings"}</div></div>
             <div className="go">View ›</div>
           </button>
+          {banner && (
+            <button className="live-banner" id="liveBanner" onClick={onBanner}>
+              <div className="lb-time" id="lbTime">{banner.time}</div>
+              <div className="lb-meta"><div className="lb-title" id="lbTitle">{banner.title}</div><div className="lb-sub" id="lbSub">{banner.note}</div></div>
+              <div className="go" id="lbGo">{banner.action} ›</div>
+            </button>
+          )}
         </div>
         <div className="voice-stage">
           <div className={`mascot-wrap ${listening ? "listening" : speaking ? "speaking" : ""}`}><Image src="/assets/mascot.gif" alt="SwapSpot assistant mascot" width={104} height={72} unoptimized /></div>
@@ -42,14 +52,14 @@ export function DriveView({ nearest, location, answer, transcript, listening, sp
         </div>
         <div className="chips">
           {[["find parking", "Find parking", "nearest open spots"], ["cheapest parking", "Cheapest nearby", "best value today"], ["ev charging parking", "EV charging", "lots with chargers"]].map(([command, title, sub]) => (
-            <button className="chip" key={command} onClick={() => onCommand(command)}>{title}<span className="sub">{sub}</span></button>
+            <button className="chip" key={command} data-cmd={command} onClick={() => onCommand(command, "chip")}>{title}<span className="sub">{sub}</span></button>
           ))}
         </div>
         <form className="text-command" onSubmit={(event) => {
           event.preventDefault();
           const command = typedCommand.trim();
           if (command) {
-            onCommand(command);
+            onCommand(command, "text");
             setTypedCommand("");
           }
         }}>

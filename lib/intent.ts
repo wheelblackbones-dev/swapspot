@@ -67,5 +67,25 @@ export function parseIntent(query: string, lots: DemoLot[]) {
     nearest: /\b(nearest|closest|near me|nearby|around me|any (free )?spot|find (a |parking)|where (can|to) park|parking)\b/.test(text),
     maxDistance: distanceM === null ? distanceKm : distanceM / 1000,
     maxPrice: extractNumber(text, "(baht|bht|฿|thb)\\b"),
+    insights: /\b(insights?|dashboard|analytics|statistics|stats|dikw)\b/.test(text),
+    account: /\b(my (account|profile|bookings?|history|receipts?|payments?)|sign ?in|log ?in)\b/.test(text),
+    pay: /\b(pay( now)?|payment|check ?out)\b/.test(text) && !/\bhow much\b/.test(text),
   };
+}
+
+export type Intent = ReturnType<typeof parseIntent>;
+
+/** The values public.search_events.intent accepts. */
+export type SearchKind =
+  | "find_nearest" | "cheapest" | "free" | "ev" | "accessible" | "covered"
+  | "navigate" | "reserve" | "price_check" | "availability_check" | "other";
+
+/** The kind of parking search to record as a demand signal. Only the kind is stored, never the words. */
+export function searchKind(intent: Pick<Intent, "ev" | "disabled" | "covered" | "free" | "cheapest" | "nearest">): SearchKind {
+  if (intent.ev) return "ev";
+  if (intent.disabled) return "accessible";
+  if (intent.covered) return "covered";
+  if (intent.free) return "free";
+  if (intent.cheapest) return "cheapest";
+  return intent.nearest ? "find_nearest" : "other";
 }

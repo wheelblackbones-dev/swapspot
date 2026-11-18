@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-type IconName = "mic" | "settings" | "volume" | "back" | "navigate" | "spots" | "camera" | "search" | "close";
+type IconName = "mic" | "settings" | "volume" | "back" | "navigate" | "spots" | "camera" | "search" | "close" | "chart" | "user" | "check";
 
 const paths: Record<IconName, React.ReactNode> = {
   mic: <><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 10a7 7 0 0 0 14 0M12 19v3" /></>,
@@ -12,6 +12,9 @@ const paths: Record<IconName, React.ReactNode> = {
   camera: <><path d="M23 7l-7 5 7 5V7z" /><rect x="1" y="5" width="15" height="14" rx="2" /></>,
   search: <><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /></>,
   close: <path d="M18 6 6 18M6 6l12 12" />,
+  chart: <path d="M5 20v-8M12 20V5M19 20v-5M3 20h18" />,
+  user: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
+  check: <path d="M20 6 9 17l-5-5" />,
 };
 
 export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {

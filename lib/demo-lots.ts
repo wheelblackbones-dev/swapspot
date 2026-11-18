@@ -1,6 +1,8 @@
 import type { Lot } from "./parking";
 
-export type DemoLot = Lot & { daily: number; hours: string; addr: string; security: boolean; rating: number; op: string; freeWithPurchase?: boolean };
+// dbId and bookableFree are set when the lot was loaded from the database (see lib/lots.ts);
+// the built-in sample lots below do not have them.
+export type DemoLot = Lot & { daily: number; hours: string; addr: string; security: boolean; rating: number; op: string; freeWithPurchase?: boolean; dbId?: number; bookableFree?: number };
 
 const demoLots: Omit<DemoLot, "avail">[] = [
   {id:'sp',  name:'Siam Paragon Garage',        lat:13.7464,lng:100.5340,total:2600,price:60, daily:300, hours:'10:00–22:00', addr:'991 Rama I Rd, Pathum Wan', ev:12, disabled:28, covered:true, security:true, rating:4.6, op:'Siam Piwat'},

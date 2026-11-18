@@ -56,13 +56,13 @@ export function SettingsView({ settings, voices, onChange, onBack }: Props) {
           {toggle("needDisabled", "Require accessible spot")}
           {toggle("needCovered", "Covered parking only")}
         </div>
-        <div className="hint-box"><b>Voice commands:</b> Find parking, ask for the cheapest lot, find EV charging, or ask about a named lot.</div>
+        <div className="hint-box"><b>Voice commands:</b> Find parking, ask for the cheapest lot, find EV charging, ask about a named lot, or open your account, checkout and insights.</div>
         <div className="voice-cmds">
-          {["Find parking near me", "Cheapest spot within 2 km", "Is CentralWorld full?", "Any free parking?", "EV charging with spot", "Take me to Siam Paragon", "How much per hour?", "Hold a spot for me", "Cancel navigation"].map((command) => (
+          {["Find parking near me", "Cheapest spot within 2 km", "Is CentralWorld full?", "Any free parking?", "EV charging with spot", "Take me to Siam Paragon", "How much per hour?", "Hold a spot for me", "Cancel navigation", "Open my account", "Pay now", "Show insights"].map((command) => (
             <div className="voice-cmd" key={command}><b>“{command}”</b></div>
           ))}
         </div>
-        <div className="hint-box">Demo only: availability, booking, navigation, location and camera detection are simulated.</div>
+        <div className="hint-box">Demo only: sensor readings, payments, navigation, location and camera detection are simulated. Bookings are saved in the project database, but no real space is reserved and no money is taken.</div>
       </div>
     </section>
   );

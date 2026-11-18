@@ -14,8 +14,10 @@
     "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.119.0",
     "leaflet": "1.9.4",
     "next": "16.4.6",
+    "qrcode-generator": "2.0.4",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

@@ -22,9 +22,12 @@ export function ParkingMap({ lots, location, selected, onSelect, recenter = 0 }:
   useEffect(() => {
     let disposed = false;
     let map: LeafletMap | null = null;
+    let zooming = false;
     import("leaflet").then((L) => {
       if (disposed || !container.current) return;
       map = L.map(container.current, { zoomControl: false }).setView([13.746, 100.535], 14);
+      map.on("zoomanim", () => { zooming = true; });
+      map.on("zoomend", () => { zooming = false; });
       L.control.zoom({ position: "topright" }).addTo(map);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -41,7 +44,12 @@ export function ParkingMap({ lots, location, selected, onSelect, recenter = 0 }:
     return () => {
       disposed = true;
       mapRef.current = null;
-      map?.remove();
+      const closing = map;
+      if (!closing) return;
+      // Leaflet finishes an animated zoom on a timer. Removing the map before that timer fires throws
+      // inside Leaflet ("_leaflet_pos" of undefined), so a map that is mid-zoom is removed when the zoom ends.
+      if (zooming) closing.once("zoomend", () => setTimeout(() => closing.remove(), 0));
+      else closing.remove();
     };
   }, []);
 

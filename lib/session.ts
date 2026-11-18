@@ -1,5 +1,7 @@
 export type SpotState = "free" | "occ" | "booked" | "mine";
-export type Spot = { id: string; state: SpotState };
+export type SpotType = "standard" | "ev" | "accessible";
+// dbId and type are set for spots loaded from the database (public.parking_spots).
+export type Spot = { id: string; state: SpotState; dbId?: number; type?: SpotType };
 export type ParkingSession = { lotId: string; spotId: string; startedAt: number; durationMs: number };
 
 export function createDemoSpots(availabilityRatio: number): Spot[] {
